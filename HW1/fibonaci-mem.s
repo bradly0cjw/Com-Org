@@ -1,15 +1,21 @@
     .data
+input:
+    .word 5
+    .word 10
+    .word 15
+    .word 4
+    .word 3
+    .word 0    
 space:  
     .asciiz " "
 return: 
     .asciiz "\n"
     .text
+    la $s0, input
 main:
     li $t1, 0
     li $t2, 1
-    li $v0, 5
-    syscall
-    add $t0, $v0, $0
+    lw $t0, 0($s0)
     beq $t0, 0, exit
 loop:
     beq $t0, 0, end
@@ -30,6 +36,7 @@ end:
     la $a0, return
     li $v0, 4
     syscall
+    addi $s0, $s0, 4
     j main
 exit:
     li $v0 10
